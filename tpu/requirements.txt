@@ -7,13 +7,14 @@ tensorflow_hub
 tensorflow-io
 tensorflow-probability
 tensorflow_datasets
-# Torch packages
+# Torch packages. See instructions: https://pypi.org/project/torch-xla/2.8.1/
 torch==${TORCH_VERSION}
-https://storage.googleapis.com/pytorch-xla-releases/wheels/tpuvm/torch_xla-${TORCH_VERSION}-${PYTHON_WHEEL_VERSION}-${PYTHON_WHEEL_VERSION}-${TORCH_LINUX_WHEEL_VERSION}.whl
+https://storage.googleapis.com/pytorch-xla-releases/wheels/tpuvm/torch_xla-${TORCH_XLA_VERSION}-${PYTHON_WHEEL_VERSION}-${PYTHON_WHEEL_VERSION}-${TORCH_LINUX_WHEEL_VERSION}.whl
+torch-xla[tpu]==${TORCH_XLA_VERSION}
 torchaudio==${TORCHAUDIO_VERSION}
 torchvision==${TORCHVISION_VERSION}
 # Jax packages
-jax[tpu]>=0.5.2
+jax[tpu]==0.6.2
 --find-links https://storage.googleapis.com/jax-releases/libtpu_releases.html
 distrax
 flax
@@ -21,8 +22,10 @@ git+https://github.com/deepmind/dm-haiku
 jraph
 optax
 trax
-# Tunix GRPO
-git+https://github.com/google/tunix
+# Tunix GRPO.
+# Newer commits depend on flax at github head, which depend on jax >= 0.7, which
+# causes dep conflicts with other frameworks, so we pin to the newest SHA we can.
+git+https://github.com/google/tunix@28b44d7b7ea46d6536e2a9c91b8fc4c5f6238bf7
 git+https://github.com/google/qwix
 grain
 # Jupyter packages
