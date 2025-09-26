@@ -35,14 +35,38 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 # Additional useful packages should be added in the requirements.txt
 # Bring in the requirements.txt and replace variables in it:
 RUN apt-get install -y gettext
-ADD tpu/requirements.txt /kaggle_requirements.txt
-RUN envsubst < /kaggle_requirements.txt > /requirements.txt
+ADD tpu/requirements.in /kaggle_requirements.in
+RUN envsubst < /kaggle_requirements.in > /requirements.in
 
 # Install uv and then install the requirements:
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-RUN export PATH="${HOME}/.local/bin:${PATH}" && uv pip install --system -r /requirements.txt --prerelease=allow --force-reinstall && \
+RUN export PATH="${HOME}/.local/bin:${PATH}" && \
+    uv pip compile --system --prerelease=allow \
+        --verbose \
+        --upgrade \
+        --find-links=https://storage.googleapis.com/jax-releases/libtpu_releases.html \
+        --find-links=https://storage.googleapis.com/libtpu-releases/index.html \
+        --find-links=https://storage.googleapis.com/libtpu-wheels/index.html \
+        --find-links=https://download.pytorch.org/whl/torch_stable.html \
+        --emit-find-links \
+        --no-emit-package pip \
+        --no-emit-package setuptools \
+        --output-file /requirements.txt \
+        /requirements.in && \
+    uv pip install --system --prerelease=allow --force-reinstall \
+        -r /requirements.txt && \
+    uv cache clean && \
     /tmp/clean-layer.sh
-ENV PATH="~/.local/bin:${PATH}"
+
+#RUN export PATH="${HOME}/.local/bin:${PATH}" && \
+#    uv pip install --system tensorflow-tpu==2.19.1 --force-reinstall && \
+#    uv pip install --system --force-reinstall \
+#        --find-links=https://storage.googleapis.com/jax-releases/libtpu_releases.html \
+#        --find-links=https://storage.googleapis.com/libtpu-releases/index.html \
+#        --find-links=https://storage.googleapis.com/libtpu-wheels/index.html \
+#        libtpu==0.0.17 && \
+#    uv cache clean && \
+#    /tmp/clean-layer.sh
 
 # Kaggle Model Hub patches:
 ADD patches/kaggle_module_resolver.py /usr/local/lib/${PYTHON_VERSION_PATH}/site-packages/tensorflow_hub/kaggle_module_resolver.py

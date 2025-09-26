@@ -1,0 +1,59 @@
+# TPU Utils
+tpu-info
+tensorflow-cpu==${TENSORFLOW_VERSION}
+#tensorflow-tpu==${TENSORFLOW_VERSION}
+# --find-links https://storage.googleapis.com/libtpu-tf-releases/index.html
+tensorflow_hub
+tensorflow-io
+tensorflow-probability
+tensorflow_datasets
+# Torch packages.
+# Compile using the CPU version of PyTorch. Without this, it installs the GPU
+# version of PyTorch. The GPU version works on non-GPU systems, but the imports
+# are unnecessarily slow.
+torch==${TORCH_VERSION}
+torchaudio==${TORCHAUDIO_VERSION}
+torchvision==${TORCHVISION_VERSION}
+https://storage.googleapis.com/pytorch-xla-releases/wheels/tpuvm/torch_xla-${TORCH_VERSION}-${PYTHON_WHEEL_VERSION}-${PYTHON_WHEEL_VERSION}-${TORCH_LINUX_WHEEL_VERSION}.whl
+# Jax packages
+# jax[tpu]==0.6.2
+jax[tpu]
+distrax
+flax
+git+https://github.com/deepmind/dm-haiku
+jraph
+optax
+trax
+# Tunix GRPO.
+# git+https://github.com/google/tunix@cad364b9c14b9debf00b9a9301c31ed3346ff09e
+git+https://github.com/google/tunix
+git+https://github.com/google/qwix
+grain
+# Jupyter packages
+jupyter-lsp==1.5.1
+jupyterlab
+notebook
+papermill
+python-lsp-server[all]
+# Keras Packages
+keras>3
+keras-cv
+keras-nlp
+# Kaggle Packages
+kagglehub
+# Other useful packages, add more here
+accelerate
+albumentations
+diffusers
+einops
+fastparquet
+ipywidgets
+matplotlib
+opencv-python
+opencv-python-headless
+pandas
+pyarrow
+scikit-learn
+seaborn
+timm
+transformers

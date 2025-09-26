@@ -5,7 +5,6 @@ TENSORFLOW_VERSION=2.20.0
 # gsutil ls gs://pytorch-xla-releases/wheels/tpuvm/* | grep libtpu | grep torch_xla | grep -v -E ".*rc[0-9].*" | sed 's/.*torch_xla-\(.*\)+libtpu.*/\1/' | sort -rV
 # Supports nightly
 TORCH_VERSION=2.8.0
-TORCH_XLA_VERSION=2.8.1
 # https://github.com/pytorch/audio supports nightly
 TORCHAUDIO_VERSION=2.8.0
 # https://github.com/pytorch/vision supports nightly
