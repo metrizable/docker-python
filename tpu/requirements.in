@@ -1,8 +1,8 @@
 # TPU Utils
 tpu-info
-tensorflow-cpu==${TENSORFLOW_VERSION}
-#tensorflow-tpu==${TENSORFLOW_VERSION}
-# --find-links https://storage.googleapis.com/libtpu-tf-releases/index.html
+# tensorflow-cpu==${TENSORFLOW_VERSION}
+tensorflow-tpu==${TENSORFLOW_VERSION}
+--find-links https://storage.googleapis.com/libtpu-tf-releases/index.html
 tensorflow_hub
 tensorflow-io
 tensorflow-probability

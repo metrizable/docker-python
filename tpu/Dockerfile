@@ -58,15 +58,10 @@ RUN export PATH="${HOME}/.local/bin:${PATH}" && \
     uv cache clean && \
     /tmp/clean-layer.sh
 
-#RUN export PATH="${HOME}/.local/bin:${PATH}" && \
-#    uv pip install --system tensorflow-tpu==2.19.1 --force-reinstall && \
-#    uv pip install --system --force-reinstall \
-#        --find-links=https://storage.googleapis.com/jax-releases/libtpu_releases.html \
-#        --find-links=https://storage.googleapis.com/libtpu-releases/index.html \
-#        --find-links=https://storage.googleapis.com/libtpu-wheels/index.html \
-#        libtpu==0.0.17 && \
-#    uv cache clean && \
-#    /tmp/clean-layer.sh
+RUN export PATH="${HOME}/.local/bin:${PATH}" && \
+    uv pip install --system --force-reinstall libtpu==0.0.17 && \
+    uv cache clean && \
+    /tmp/clean-layer.sh
 
 # Kaggle Model Hub patches:
 ADD patches/kaggle_module_resolver.py /usr/local/lib/${PYTHON_VERSION_PATH}/site-packages/tensorflow_hub/kaggle_module_resolver.py
