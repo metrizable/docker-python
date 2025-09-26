@@ -59,6 +59,7 @@ RUN export PATH="${HOME}/.local/bin:${PATH}" && \
     /tmp/clean-layer.sh
 
 RUN export PATH="${HOME}/.local/bin:${PATH}" && \
+    uv pip install --system --force-reinstall tensorflow-tpu==2.19.1 && \
     uv pip install --system --force-reinstall libtpu==0.0.17 && \
     uv cache clean && \
     /tmp/clean-layer.sh
