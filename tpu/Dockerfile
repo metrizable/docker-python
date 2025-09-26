@@ -58,12 +58,6 @@ RUN export PATH="${HOME}/.local/bin:${PATH}" && \
     uv cache clean && \
     /tmp/clean-layer.sh
 
-RUN export PATH="${HOME}/.local/bin:${PATH}" && \
-    uv pip install --system --force-reinstall tensorflow-tpu==2.19.1 && \
-    uv pip install --system --force-reinstall libtpu==0.0.17 && \
-    uv cache clean && \
-    /tmp/clean-layer.sh
-
 # Kaggle Model Hub patches:
 ADD patches/kaggle_module_resolver.py /usr/local/lib/${PYTHON_VERSION_PATH}/site-packages/tensorflow_hub/kaggle_module_resolver.py
 RUN sed -i '/from tensorflow_hub import uncompressed_module_resolver/a from tensorflow_hub import kaggle_module_resolver' /usr/local/lib/${PYTHON_VERSION_PATH}/site-packages/tensorflow_hub/config.py
